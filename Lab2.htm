@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<!-- Modify Title between these comments (Choose correct class number and substitute your username) -->
+	<title>ITMD 465/565 Lab 2 - Lkoduri2 - DOM Manipulation</title>
+	<!-- Modify Title between these comments -->
+	<style type="text/css">
+		body {
+			background-color: #ccc;
+			font-family: sans-serif;
+		}
+		label {
+			width: 100px;
+			display: inline-block;
+			margin: 5px 0;
+		}
+		input {
+			display: inline-block;
+			margin: 5px 0;
+		}
+		button {
+			display: inline-block;
+			margin: 20px 10px 20px 0;
+		}
+		#wrapper {
+			background-color: #fff;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px 40px;
+		}
+		#resultsWrapper .result {
+			border: 4px solid red;
+			padding: 10px;
+			margin: 10px 0;
+		}
+		#resultsWrapper .red {
+			border-color: red;
+		}
+		#resultsWrapper .red h2 {
+			color: red;
+		}
+		#resultsWrapper .green {
+			border-color: green;
+		}
+		#resultsWrapper .green h2 {
+			color: green;
+		}
+		#resultsWrapper .blue {
+			border-color: blue;
+		}
+		#resultsWrapper .blue h2 {
+			color: blue;
+		}
+		/* You may add additional CSS below this comment if you feel necessary */
+		
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<!-- Modify headlines between these comments (Choose correct class number and substitute Name and Email) -->
+		<h1>ITMD 465/565 - Lab 2 - DOM Manipulation</h1>
+		<h2>Anuhya Koduri - lkoduri2</h2>
+		<!-- Modify headlines between these comments -->
+		<label for="bodyInput">Body Text: </label><input id="bodyInput" type="text"><br>
+		<label for="quantityInput">Quantity: </label><input id="quantityInput" type="text"><br>
+		<label for="colorInput">Color: </label>
+		<select id="colorInput">
+			<option value="red">Red</option>
+			<option value="green">Green</option>
+			<option value="blue">Blue</option>
+		</select><br>
+		
+		<button id="runBtn">Run Lab</button>
+		<button id="resetBtn">Reset Lab</button>
+		
+		<h2>Results</h2>
+		<div id="resultsWrapper"></div>
+	</div>
+	
+	<script type="text/javascript">
+		// Begin JavaScript Code Here - Do not put JavaScript outside these comments.
+
+		document.getElementById("runBtn").addEventListener("click", Text);
+		
+		
+	    function Text(){
+
+			document.getElementById("resultsWrapper").innerHTML = "";
+
+
+            if (document.getElementById("bodyInput").value == "" ||document.getElementById("quantityInput").value == "") {
+                alert("Please enter valid body text and quantity");
+                return false;
+            }
+			if (document.getElementById("quantityInput").value < 0) {
+                alert("Please enter valid positive number in Quantity  ");
+                return false;
+            }
+
+            if (isNaN(document.getElementById("quantityInput").value )) {
+                alert("Please enter valid numeber in quantity text box");
+                return false;
+            }
+			var ouputDisplay = document.getElementById("bodyInput").value;
+            var choseColor = document.getElementById("colorInput").value;
+            var quantity = document.getElementById("quantityInput").value;
+            
+			var i=1;
+
+            while (i <= quantity)
+            {
+				
+                var divDisplay = document.createElement('div');
+                var heading = document.createElement('h2');
+                var show = document.createTextNode('Output '+i);
+				linebreak = document.createElement('br');
+                divDisplay.style.border = "thick solid "+choseColor;
+                heading.style.color = choseColor
+                heading.appendChild(show);
+                divDisplay.appendChild(heading);
+				
+                var bin = document.createElement('p');
+                var result = document.createTextNode(ouputDisplay);
+				
+                bin.appendChild(result);
+                divDisplay.appendChild(bin);
+				
+                resultsWrapper.appendChild(divDisplay);
+				
+			    i++;
+				resultsWrapper.appendChild(linebreak);
+
+
+            }
+			
+			}
+		//runbtn.choseColor;
+		document.getElementById("resetBtn").addEventListener("click", reset);
+		
+		function reset()
+        {
+            document.getElementById("bodyInput").value = "";
+            document.getElementById("quantityInput").value = "";
+            document.getElementById("resultsWrapper").innerHTML = "";
+        }
+		// End JavaScript Code Here - Do not put JavaScript outside these comments.
+	</script>
+</body>
+</html
