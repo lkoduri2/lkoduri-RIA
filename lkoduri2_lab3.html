@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <title>ITMD 565 Lab 3 - Anuhya Koduri </title>
+    <style type="text/css">
+        body {
+            background-color: white;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+            font-weight: lighter;
+            background-position: right bottom, left top;
+            background-repeat: no-repeat, repeat;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .wrapper {
+            text-align: center;
+        }
+
+        tablef {
+
+            border: 1px solid black;
+        }
+        .button {
+
+            border-radius:8px;
+
+        }
+        tr
+        {
+            padding: 8px 2px;
+            font-weight: normal;
+            font-size: 13px;
+            color: #039;
+        }
+        td
+        {
+            padding: 12px 2px 0px 2px;
+            color: #669;
+        }
+        .tableWrapper{
+            margin-top: 30px;
+            position: relative;
+        }
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <h1 align="center">ITMD 565 - Lab 3 </h1>
+    <h2 align="center">Anuhya Koduri - lkoduri2@hawk.iit.edu</h2>
+    
+</div>
+<div class="wrapper">
+    <button class="button" id="runBtn">Local Data</button>
+    <button class="button" id="resetBtn">Reset</button>
+</div>
+<div>
+    <h2 align="center">Employees List</h2>
+    <div id="employeeslist"></div>
+
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    var data = [];
+    var html = "<div class='tablef'</div><table class='table'>";
+    html += "<tr><th>ID</th>" +
+        "<th>Gender</th>" +
+        "<th>First Name</th>" +
+        "<th>Last Name</th>"+
+        "<th>Email</th>"+
+        "<th>Title</th>"+
+        "<th>Active</th></tr>";
+    document.getElementById("employeeslist").innerHTML = html;
+    //Javascript begins
+    document.getElementById("runBtn").addEventListener("click", Data);
+    document.getElementById("resetBtn").addEventListener("click", reset);
+    function reset()
+    {
+        data = [];
+        html = null;
+        document.getElementById("employeeslist").innerHTML = "";
+        document.getElementById("resetBtn").disabled = true;
+        document.getElementById("runBtn").disabled = false;
+        var html = "<div class='tablef'</div><table class='table'>";
+        
+        html += "<tr><th>ID</th>" +
+        "<th>Gender</th>" +
+        "<th>First Name</th>" +
+        "<th>Last Name</th>"+
+        "<th>Email</th>"+
+        "<th>Title</th>"+
+        "<th>Active</th></tr>";
+    document.getElementById("employeeslist").innerHTML = html;
+
+        
+        
+    }
+    function Data() {
+        var html = "<div class='tablef'</div><table class='table'>";
+            html += "<tr><th>ID</th>" +
+            "<th>Gender</th>" +
+            "<th>First Name</th>" +
+            "<th>Last Name</th>"+
+            "<th>Email</th>"+
+            "<th>Title</th>"+
+            "<th>Active</th></tr>"; 
+        getReq('http://libertyville.rice.iit.edu/scripts/4565_lab3.php', function (invoke) {
+            
+            data = JSON.parse(invoke);
+            for (var i = 0; i < data.length; i++)
+            {
+                
+
+                html += '<tr>';
+                html += '<td>'+data[i].id+'</td>';
+                html += '<td>'+data[i].gender+'</td>';
+                html += '<td>'+data[i].first_name+'</td>';
+                html += '<td>'+data[i].last_name+'</td>';
+                html += '<td>'+data[i].email+'</td>';
+                html += '<td>' +data[i].title + '</td>';
+                html += '<td>'+data[i].active+'</td>';
+                html += '</tr>';
+
+           }
+
+            document.getElementById("employeeslist").innerHTML = html;
+            document.getElementById("resetBtn").disabled = false;
+            document.getElementById("runBtn").disabled = true;
+            
+        })
+
+        function getReq(url, fn)
+        {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = handleResponse;
+
+            request.open("GET", url, true);
+            request.send(null);
+
+            function handleResponse()
+            {
+                if (this.readyState == this.DONE && this.status == 200)
+                {
+                    
+                        fn(this.responseText);
+                    
+                }
+            }
+        }
+
+        function log(message)
+        {
+            return console.log(message);
+        }
+
+    }
+
+
+</script>
+
